@@ -2,9 +2,14 @@
 #include "debug.h"
 
 int main() {
-  Chunk *chunk = (Chunk *)malloc(sizeof(Chunk));
-  init_chunk(chunk);
-  write_chunk(chunk, OP_RETURN);
-  disassembleChunk(chunk, "test chunk");
-  free_chunk(chunk);
+  Chunk chunk;
+  init_chunk(&chunk);
+
+  int ind = addConstant(&chunk, 1.2);
+  write_chunk(&chunk, OP_CONST, 122);
+  write_chunk(&chunk, ind, 122);
+  write_chunk(&chunk, OP_RETURN, 122);
+
+  disassembleChunk(&chunk, "test chunk");
+  free_chunk(&chunk);
 }
